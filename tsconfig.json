@@ -10,8 +10,9 @@
     "rootDir": "./"
   },
   "include": [
-    "tests/**/*.ts",
-    "tests-examples/**/*.ts",
+    // "tests/**/*.ts",
+    // "tests-examples/**/*.ts",
+    "./**/*.ts"
   ],
   "exclude": [
     "node_modules"
