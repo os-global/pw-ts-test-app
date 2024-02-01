@@ -1,22 +1,25 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
+import { DashboardPage } from '../pages/dashboard.page';
 
 test('login/logout test', async ({ page }) => {
-  await page.goto('http://localhost:8000');
-  await page.getByLabel('Username:').fill('default');
-  await page.getByLabel('Password:').fill('QADqwerty');
-  const loginButton = page.getByRole('button', { name: 'Login' })
-  await loginButton.click();
-  const logout = page.locator('.logOut');
-  await expect(logout).toBeVisible();
-  await page.locator('.logOut').click();
-  await expect(loginButton).toBeVisible();
+  const loginPage = new LoginPage(page);
+  await loginPage.navigate();
+  await loginPage.login('default', 'QADqwerty');
+
+  const dashboardPage = new DashboardPage(page);
+  await expect(dashboardPage.logoutButton).toBeVisible();
+
+  await dashboardPage.logoutButton.click();
+  await expect(loginPage.loginButton).toBeVisible();
 });
 
 test('user cannot login with wrong credentials', async ({ page }) => {
-  await page.goto('http://localhost:8000');
-  await page.getByLabel('Username:').fill('default');
-  await page.getByLabel('Password:').fill('wrong password');
-  await page.getByRole('button', { name: 'Login' }).click();
-  await expect(page.locator('.logOut')).toBeHidden();
-  await expect(page.getByText("Your username and password didn't match. Please try again.")).toBeVisible();
+  const loginPage = new LoginPage(page);
+  await loginPage.navigate();
+  await loginPage.login('default', 'wrong password');
+
+  const dashboardPage = new DashboardPage(page);
+  await expect(dashboardPage.logoutButton).toBeHidden();
+  await expect(loginPage.credsErrorMessage).toBeVisible();
 });
