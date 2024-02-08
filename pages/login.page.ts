@@ -8,7 +8,7 @@ export class LoginPage extends BasePage {
     readonly credsErrorMessage = this.page.getByText("Your username and password didn't match. Please try again.");
 
     async navigate() {
-        await this.page.goto('http://localhost:8000');
+        await this.page.goto('/');
     }
 
     async login(username: string, password: string) {
