@@ -1,10 +1,3 @@
-import { Page } from "@playwright/test" 
+import { PageHolder } from "../base.page";
 
-export class BasePage {
-    
-    protected readonly page: Page;
-
-    constructor(page: Page) {
-        this.page = page;
-    }
-}
+export class BasePage extends PageHolder {}
