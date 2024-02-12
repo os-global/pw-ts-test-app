@@ -1,8 +1,8 @@
-import { BaseComponent } from "./base.component";
+import { BaseComponent } from "../core/base.component";
 
 export class NavigationComponent extends BaseComponent {
     
     async openMenuItem(itemName: string) {
-        await this.page.getByRole('link', { name: `${itemName}` }).click();
+        await this.locator.getByRole('link', { name: `${itemName}` }).click();
     }
 }

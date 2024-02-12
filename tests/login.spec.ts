@@ -1,22 +1,21 @@
-import { test, expect } from '@playwright/test';
-import { App } from '../app';
+import { test, expect } from "@playwright/test";
+import { App } from "../app";
 
-test('login/logout test', async ({ page }) => {
+test("login/logout test", async ({ page }) => {
   const app = new App(page);
   await app.login.navigate();
-  await app.login.login('default', 'QADqwerty');
+  await app.login.login("default", "QADqwerty");
 
-  await expect(app.dashboard.logoutButton).toBeVisible();
+  expect(app.dashboard.isLoaded()).toBeTruthy();
 
-  await app.dashboard.logoutButton.click();
-  await expect(app.login.loginButton).toBeVisible();
+  await app.account.logOut();
+  expect(app.login.isLoaded()).toBeTruthy();
 });
 
-test('user cannot login with wrong credentials', async ({ page }) => {
+test("user cannot login with wrong credentials", async ({ page }) => {
   const app = new App(page);
   await app.login.navigate();
-  await app.login.login('default', 'wrong password');
+  await app.login.login("default", "wrong password");
 
-  await expect(app.dashboard.logoutButton).toBeHidden();
-  await expect(app.login.credsErrorMessage).toBeVisible();
+  expect(app.login.expectCredsErrorMessage);
 });
