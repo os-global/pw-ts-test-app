@@ -19,3 +19,11 @@ test("user cannot login with wrong credentials", async ({ page }) => {
 
   expect(app.login.expectCredsErrorMessage);
 });
+
+test("silent login test", async ({ page }) => { 
+  const app = new App(page);
+  await app.login.silentLogin("default", "QADqwerty");
+  await app.dashboard.open();
+  
+  expect(app.dashboard.isLoaded()).toBeTruthy();
+});

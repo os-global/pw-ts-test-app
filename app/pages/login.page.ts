@@ -30,4 +30,8 @@ export class LoginPage extends AppPage {
   async expectCredsErrorMessage() {
     await expect(this.credsErrorMessage).toBeVisible();
   }
+
+  async silentLogin(username: string, password: string) {
+    await this.page.request.post("/api/auth/login", {data: {"username": username, "password": password}});
+  }
 }
