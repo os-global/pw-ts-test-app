@@ -1,5 +1,5 @@
 import { App } from "../app";
-import { test as base } from "@playwright/test";
+import { test as base } from "./base.fixtures";
 
 type Fixtures = {
     app: App;
@@ -12,9 +12,9 @@ export const test = base.extend<Fixtures>({
         await use(app);
         // teardown
     },
-    defaultUserApp: async ({ page }, use) => {
+    defaultUserApp: async ({ page, defaultUser }, use) => {
         const defaultUserApp = new App(page);
-        await defaultUserApp.login.silentLogin("default", "QADqwerty");
+        await defaultUserApp.login.silentLogin(defaultUser.username, defaultUser.password);
         await use(defaultUserApp);
         // teardown
     }

@@ -1,10 +1,10 @@
-import { test as base } from "@playwright/test";
+import { test as base } from "./base.fixtures";
 import { ApiClient } from "../api";
 
 type Fixtures = {
-  api: ApiClient,
-  apiDefault: ApiClient,
-  createdTest: number,
+  api: ApiClient;
+  apiDefaultUser: ApiClient;
+  createdTest: number;
 };
 
 export const test = base.extend<Fixtures>({
@@ -13,14 +13,23 @@ export const test = base.extend<Fixtures>({
     await use(api);
     // teardown
   },
-  apiDefault: async ({ request }, use) => {
-    const api = await ApiClient.authenticated(request, { username: "default", password: "QADqwerty" });
+  apiDefaultUser: async ({ request, defaultUser }, use) => {
+    const api = await ApiClient.authenticated(request, {
+      username: `${defaultUser.username}`,
+      password: `${defaultUser.password}`,
+    });
     await use(api);
     // teardown
   },
   createdTest: async ({ request }, use) => {
-    const api = await ApiClient.authenticated(request, { username: "default", password: "QADqwerty" });
-    const newTest = await api.test.create({ name: "Test 1", description: "Test description" });
+    const api = await ApiClient.authenticated(request, {
+      username: "default",
+      password: "QADqwerty",
+    });
+    const newTest = await api.test.create({
+      name: "Test 1",
+      description: "Test description",
+    });
     console.log(`newTest: ${newTest.test_id}`);
     await use(newTest.test_id);
     // teardown

@@ -1,8 +1,8 @@
 import { test, expect } from "../src/fixtures";
 
-test("login/logout test", async ({ app }) => {
+test("login/logout test", async ({ app, defaultUser }) => {
   await app.login.navigate();
-  await app.login.login("default", "QADqwerty");
+  await app.login.login(defaultUser.username, defaultUser.password);
 
   expect(app.dashboard.isLoaded()).toBeTruthy();
 
@@ -10,15 +10,15 @@ test("login/logout test", async ({ app }) => {
   expect(app.login.isLoaded()).toBeTruthy();
 });
 
-test("user cannot login with wrong credentials", async ({ app }) => {
+test("user cannot login with wrong credentials", async ({ app, defaultUser }) => {
   await app.login.navigate();
-  await app.login.login("default", "wrong password");
+  await app.login.login(defaultUser.username, "wrong password");
 
   expect(app.login.expectCredsErrorMessage);
 });
 
-test("silent login test", async ({ app }) => { 
-  await app.login.silentLogin("default", "QADqwerty");
+test("silent login test", async ({ app, defaultUser }) => { 
+  await app.login.silentLogin(defaultUser.username, defaultUser.password);
   await app.dashboard.open();
   
   expect(app.dashboard.isLoaded()).toBeTruthy();
