@@ -12,6 +12,7 @@
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8.56.0",
     "eslint-plugin-no-floating-promise": "^1.0.2",
     "typescript": "^5.3.3"

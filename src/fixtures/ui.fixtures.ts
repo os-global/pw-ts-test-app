@@ -1,5 +1,5 @@
 import { App } from "../app";
-import { test as base } from "./base.fixtures";
+import { test as base } from "./test.options";
 
 type Fixtures = {
     app: App;

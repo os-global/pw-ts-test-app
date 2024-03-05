@@ -1,4 +1,4 @@
-import { test as base } from "./base.fixtures";
+import { test as base } from "./test.options";
 import { ApiClient } from "../api";
 
 type Fixtures = {
@@ -21,8 +21,8 @@ export const test = base.extend<Fixtures>({
     await use(api);
     // teardown
   },
-  createdTest: async ({ request }, use) => {
-    const api = await ApiClient.authenticated(request, {
+  createdTest: async ({ playwright }, use) => {
+    const api = await ApiClient.authenticated(await playwright.request.newContext(), {
       username: "default",
       password: "QADqwerty",
     });
