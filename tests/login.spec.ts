@@ -10,11 +10,11 @@ test("login/logout test", async ({ app, defaultUser }) => {
   expect(app.login.isLoaded()).toBeTruthy();
 });
 
-test("user cannot login with wrong credentials", async ({ app, defaultUser }) => {
-  await app.login.navigate();
-  await app.login.login(defaultUser.username, "wrong password");
+test("user cannot login with wrong credentials", async ({ app: {login}, defaultUser }) => {
+  await login.navigate();
+  await login.login(defaultUser.username, "wrong password");
 
-  expect(app.login.expectCredsErrorMessage);
+  expect(login.expectCredsErrorMessage);
 });
 
 test("silent login test", async ({ app, defaultUser }) => { 
