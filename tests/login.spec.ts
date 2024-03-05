@@ -1,6 +1,6 @@
 import { test, expect } from "../src/fixtures";
 
-test("login/logout test", async ({ app, defaultUser }) => {
+test("login/logout test", {tag: ['@login', '@smoke']}, async ({ app, defaultUser }) => {
   await app.login.navigate();
   await app.login.login(defaultUser.username, defaultUser.password);
 
