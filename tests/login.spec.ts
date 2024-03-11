@@ -1,25 +1,44 @@
 import { test, expect } from "../src/fixtures";
 
-test("login/logout test", {tag: ['@login', '@smoke']}, async ({ app, defaultUser }) => {
-  await app.login.navigate();
-  await app.login.login(defaultUser.username, defaultUser.password);
+test(
+  "login/logout test",
+  {
+    tag: ["@login", "@smoke"],
+    annotation: [
+      {
+        type: "issue",
+        description: "https://github.com/microsoft/playwright/issues/23180",
+      },
+      {
+        type: "docs",
+        description: "https://playwright.dev/docs/test-annotations#tag-tests",
+      },
+    ],
+  },
+  async ({ app, defaultUser }) => {
+    await app.login.navigate();
+    await app.login.login(defaultUser.username, defaultUser.password);
+  
+    expect(app.dashboard.isLoaded()).toBeTruthy();
 
-  expect(app.dashboard.isLoaded()).toBeTruthy();
+    await app.account.logOut();
+    expect(app.login.isLoaded()).toBeTruthy();
+  }
+);
 
-  await app.account.logOut();
-  expect(app.login.isLoaded()).toBeTruthy();
-});
-
-test("user cannot login with wrong credentials", async ({ app: {login}, defaultUser }) => {
+test("user cannot login with wrong credentials", async ({
+  app: { login },
+  defaultUser,
+}) => {
   await login.navigate();
   await login.login(defaultUser.username, "wrong password");
 
   expect(login.expectCredsErrorMessage);
 });
 
-test("silent login test", async ({ app, defaultUser }) => { 
+test("silent login test", async ({ app, defaultUser }) => {
   await app.login.silentLogin(defaultUser.username, defaultUser.password);
   await app.dashboard.open();
-  
+
   expect(app.dashboard.isLoaded()).toBeTruthy();
 });
