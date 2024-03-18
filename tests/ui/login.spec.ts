@@ -1,4 +1,4 @@
-import { test, expect } from "../src/fixtures";
+import { test, expect } from "../../src/fixtures";
 
 test(
   "login/logout test",
