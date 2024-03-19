@@ -4,7 +4,8 @@ import { ApiClient } from "../api";
 type Fixtures = {
   api: ApiClient;
   apiDefaultUser: ApiClient;
-  createdTest: number;
+
+  // createdTest: number;
 };
 
 export const test = base.extend<Fixtures>({
@@ -21,18 +22,19 @@ export const test = base.extend<Fixtures>({
     await use(api);
     // teardown
   },
-  createdTest: async ({ playwright }, use) => {
-    const api = await ApiClient.authenticated(await playwright.request.newContext(), {
-      username: "default",
-      password: "QADqwerty",
-    });
-    const newTest = await api.test.create({
-      name: "Test 1",
-      description: "Test description",
-    });
-    console.log(`newTest: ${newTest.test_id}`);
-    await use(newTest.test_id);
-    // teardown
-    await api.test.delete(newTest.test_id);
-  },
+
+  // createdTest: async ({ playwright }, use) => {
+  //   const api = await ApiClient.authenticated(await playwright.request.newContext(), {
+  //     username: "default",
+  //     password: "QADqwerty",
+  //   });
+  //   const newTest = await api.test.create({
+  //     name: "Test 1",
+  //     description: "Test description",
+  //   });
+  //   console.log(`newTest: ${newTest.test_id}`);
+  //   await use(newTest.test_id);
+  //   // teardown
+  //   await api.test.delete(newTest.test_id);
+  // },
 });

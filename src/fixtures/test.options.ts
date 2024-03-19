@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-// import { randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 
 export type TestOptions = {
   defaultUser: {
@@ -10,11 +10,11 @@ export type TestOptions = {
     username: string;
     password: string;
   };
-  // newUser: {
-  //   username: string;
-  //   password: string;
-  //   email: string;
-  // };
+  newUser: {
+    username: string;
+    password: string;
+    email: string;
+  };
 };
 
 export const test = base.extend<TestOptions>({
@@ -32,13 +32,12 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
-  // newUser: [
-  //   {
-  //     username: `${randomUUID().split("-")[0]}`,
-  //     password: "AQAqwerty",
-  //     email: `${randomUUID().split("-")[0]}@dsfnsdjkfnib.com`,
-  //   },
-  //   { option: true },
-    
-  // ],
+  newUser: [
+    {
+      username: `${randomUUID().split("-")[0]}`,
+      password: "AQAqwerty",
+      email: `${randomUUID().split("-")[0]}@dsfnsdjkfnib.com`,
+    },
+    { option: true },
+  ],
 });
