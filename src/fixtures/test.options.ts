@@ -1,20 +1,11 @@
 import { test as base } from "@playwright/test";
 import { randomUUID } from "node:crypto";
+import { User } from "../models/user.model";
 
 export type TestOptions = {
-  defaultUser: {
-    username: string;
-    password: string;
-  };
-  secondaryUser: {
-    username: string;
-    password: string;
-  };
-  newUser: {
-    username: string;
-    password: string;
-    email: string;
-  };
+  defaultUser: User;
+  secondaryUser: User;
+  newUserGeneratedCreds: User;
 };
 
 export const test = base.extend<TestOptions>({
@@ -32,7 +23,7 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
-  newUser: [
+  newUserGeneratedCreds: [
     {
       username: `${randomUUID().split("-")[0]}`,
       password: "AQAqwerty",

@@ -1,6 +1,5 @@
-import { ApiClient } from "../api";
 import { App } from "../app";
-import { test as base } from "./test.options";
+import { test as base } from "./api.fixtures";
 
 type Fixtures = {
     app: App;
@@ -20,12 +19,10 @@ export const test = base.extend<Fixtures>({
         await use(defaultUserApp);
         // teardown
     },
-    newUserApp: async ({ page, newUser, request}, use) => {
+    newUserApp: async ({ page, newUser}, use) => {
         const newUserApp = new App(page);
         await newUserApp.login.silentLogin(newUser.username, newUser.password);
         await use(newUserApp);
         // teardown
-        const api = ApiClient.authenticated(request, newUser);
-        await api.user.delete();
     }
 });

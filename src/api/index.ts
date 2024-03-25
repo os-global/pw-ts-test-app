@@ -1,11 +1,11 @@
 import { APIRequestContext } from "@playwright/test";
 import { TestController } from "./controller/test.controller";
-import { UserController as AuthController } from "./controller/user.controller";
+import { UserController as UserController } from "./controller/user.controller";
 import { User } from "../models/user.model";
 
 export class ApiClient {
   public readonly test: TestController;
-  public readonly auth: AuthController;
+  public readonly user: UserController;
 
   constructor(
     context: APIRequestContext,
@@ -13,7 +13,7 @@ export class ApiClient {
     private account?: User
   ) {
     this.test = new TestController(context, this.token);
-    this.auth = new AuthController(context, this.token);
+    this.user = new UserController(context, this.token);
   }
 
   static unauthenticated(api: APIRequestContext): ApiClient {
@@ -26,7 +26,7 @@ export class ApiClient {
   ): Promise<ApiClient> {
     return new ApiClient(
       context,
-      await this.unauthenticated(context).auth.login(user),
+      await this.unauthenticated(context).user.login(user),
       user
     );
   }

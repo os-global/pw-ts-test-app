@@ -10,7 +10,7 @@ interface CreateUserRequest {
 
 interface CreateUserResponse {
   message: string;
-  user_id: number;
+  id: number;
 }
 
 interface DeleteUserResponse {
@@ -18,15 +18,15 @@ interface DeleteUserResponse {
 }
 
 export class UserController extends BaseController {
-  async createUser(user: CreateUserRequest): Promise<CreateUserResponse> {
+  async create(user: CreateUserRequest | User): Promise<CreateUserResponse> {
     const response = await this.api.post("/api/user/new", {
       data: user,
     })
     expect(response.status()).toBe(201);
-    return response.json() satisfies Promise<CreateUserResponse>;
+    return response.json() as Promise<CreateUserResponse>;
   }
 
-  async deleteUser(userId: number): Promise<DeleteUserResponse> {
+  async delete(userId: number): Promise<DeleteUserResponse> {
     const response = await this.api.delete(`/api/user/${userId}`);
     expect(response.status()).toBe(200);
     return response.json() satisfies Promise<DeleteUserResponse>;
