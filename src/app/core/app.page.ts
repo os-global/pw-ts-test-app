@@ -1,3 +1,4 @@
+import { step } from "../../misc/reporters/step";
 import { PageHolder } from "./page-holder";
 
 export abstract class AppPage extends PageHolder {
@@ -10,6 +11,7 @@ export abstract class AppPage extends PageHolder {
   /**
    * Opens the page in the browser and expectLoaded should pass
    */
+  @step("Open page")
   async open(path?: string) {
     await this.page.goto(path ?? this.pagePath);
     await this.expectLoaded();
