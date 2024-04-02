@@ -1,4 +1,4 @@
-import { test } from "../../src/fixtures";
+import { expect, test } from "../../src/fixtures";
 
 test("create test", { tag: ["@ui", "@smoke"] }, async ({ defaultUserApp }) => {
   await defaultUserApp.dashboard.open();
@@ -23,3 +23,9 @@ test(
     await navigate.openMenuItem("Test Cases");
   }
 );
+
+test("test name is mandatory", async ({ defaultUserApp: {newTest} }) => {
+  await newTest.open();
+  await newTest.create("", "Test description default");
+  //TODO: add assertion
+});
