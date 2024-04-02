@@ -24,8 +24,8 @@ test(
   }
 );
 
-test("test name is mandatory", async ({ defaultUserApp: {newTest} }) => {
+test("test name is mandatory", async ({ defaultUserApp: {newTest, dashboard}, page }) => {
   await newTest.open();
   await newTest.create("", "Test description default");
-  //TODO: add assertion
+  await newTest.verifyValidationMessage();
 });

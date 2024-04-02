@@ -17,4 +17,8 @@ export class CreateNewTestPage extends AppPage {
     await this.testDesciptionInput.fill(testDescription);
     await this.createButton.click();
   }
+
+  async verifyValidationMessage() {
+    await this.expectInputIsEmptyValidationMessage(this.testNameInput);
+  }
 }
