@@ -3,8 +3,11 @@ import { AppPage } from "../../core/app.page";
 
 export class CreateNewTestPage extends AppPage {
   private readonly testNameInput = this.page.locator("#id_name");
-  private readonly testDesciptionInput = this.page.getByLabel("Test description");
-  private readonly createButton = this.page.getByRole("button", { name: "Create" });
+  private readonly testDesciptionInput =
+    this.page.getByLabel("Test description");
+  private readonly createButton = this.page.getByRole("button", {
+    name: "Create",
+  });
 
   public pagePath: string = "/test/new";
 
@@ -18,7 +21,7 @@ export class CreateNewTestPage extends AppPage {
     await this.createButton.click();
   }
 
-  async verifyValidationMessage() {
+  async verifyTestNameInputHasEmptyValueValidationMessage() {
     await this.expectInputIsEmptyValidationMessage(this.testNameInput);
   }
 }
