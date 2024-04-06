@@ -5,6 +5,7 @@ import { LoginPage } from "./pages/login.page";
 import { expect } from "@playwright/test";
 import { PageHolder } from "./core/page-holder";
 import { AccountComponent } from "./components/account.component";
+import { TestCasesPage } from "./pages/tests/test-cases.page";
 
 export class App extends PageHolder {
   private readonly navigationMenu = this.page.locator(".menuBox");
@@ -16,6 +17,7 @@ export class App extends PageHolder {
 
   public login = new LoginPage(this.page);
   public dashboard = new DashboardPage(this.page);
+  public testCases = new TestCasesPage(this.page);
   public newTest = new CreateNewTestPage(this.page);
   public navigate = new NavigationComponent(this.navigationMenu);
   public account = new AccountComponent(this.accountMenu);
