@@ -27,4 +27,9 @@ export class TestCasesPage extends AppPage {
   async verifyTestsHeaderCount(testscount: number) {
     await expect(this.testsHeaderCount).toHaveText(`(Total ${testscount})`);
   }
+
+  @step()
+  async getTestsHeaderCount() {
+    return parseInt((await this.testsHeaderCount.innerText()).replace(/\D/g, ""));
+  }
 }
