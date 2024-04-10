@@ -6,6 +6,7 @@ export type TestOptions = {
   defaultUser: User;
   secondaryUser: User;
   newUserGeneratedCreds: User;
+  randomString: string;
 };
 
 export const test = base.extend<TestOptions>({
@@ -29,6 +30,10 @@ export const test = base.extend<TestOptions>({
       password: "AQAqwerty",
       email: `${randomUUID().split("-")[0]}@dsfnsdjkfnib.com`,
     },
+    { option: true },
+  ],
+  randomString: [
+    `${randomUUID().split("-")[0]}`,
     { option: true },
   ],
 });

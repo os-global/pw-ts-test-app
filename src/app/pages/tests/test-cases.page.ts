@@ -6,6 +6,9 @@ export class TestCasesPage extends AppPage {
   private readonly downloadTestsButton = this.page.getByRole("button", {
     name: "Download tests",
   });
+  private readonly uploadTestsButton = this.page.getByRole("link", {
+    name: "Upload tests",
+  });
   private readonly testsHeaderCount = this.page.locator(".tableTitle span");
 
   public pagePath = "/tests";
@@ -31,5 +34,13 @@ export class TestCasesPage extends AppPage {
   @step()
   async getTestsHeaderCount() {
     return parseInt((await this.testsHeaderCount.innerText()).replace(/\D/g, ""));
+  }
+
+  @step()
+  async uploadTests(filePath: string) {
+    const fileChooserPromise = this.page.waitForEvent('filechooser');
+    await this.uploadTestsButton.click();
+    const fileChooser = await fileChooserPromise;
+    await fileChooser.setFiles(filePath);
   }
 }

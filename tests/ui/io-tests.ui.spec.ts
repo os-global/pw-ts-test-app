@@ -19,7 +19,7 @@ test(
     await testCases.open();
     const initialTestsCount = await testCases.getTestsHeaderCount();
     await testCases.uploadTests(uploadTestsFilePath);
-    const csvLineCount = await new IoHelper().countLines(`./tmp/testCases.csv`);
+    const csvLineCount = await new IoHelper().countLines(uploadTestsFilePath);
     await testCases.verifyTestsHeaderCount(initialTestsCount + csvLineCount);
   }
 );
