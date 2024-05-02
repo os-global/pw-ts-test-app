@@ -1,4 +1,4 @@
-import { expect, test } from "../../src/fixtures";
+import { test } from "../../src/fixtures";
 
 test("create test", { tag: ["@ui", "@smoke"] }, async ({ defaultUserApp }) => {
   await defaultUserApp.dashboard.open();
