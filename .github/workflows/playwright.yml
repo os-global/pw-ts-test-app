@@ -75,8 +75,9 @@ jobs:
         path: "./playwright-report"
         retention-days: 3
   deploy-html-report:
+    if: ${{ !cancelled() }}
     needs: merge-reports
-    if: needs.merge-reports.result == 'success'
+    # if: needs.merge-reports.result == 'success'
     runs-on: ubuntu-latest
     
     permissions:
