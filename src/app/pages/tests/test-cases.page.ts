@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { AppPage } from "../../core/app.page";
 import { step } from "../../../misc/reporters/step";
+import { TestCaseRowComponent } from "./test-case-row.component";
 
 export class TestCasesPage extends AppPage {
   private readonly downloadTestsButton = this.page.getByRole("button", {
@@ -10,6 +11,7 @@ export class TestCasesPage extends AppPage {
     name: "Upload tests",
   });
   private readonly testsHeaderCount = this.page.locator(".tableTitle span");
+  private readonly row = this.page.locator("tdbody tr");
 
   public pagePath = "/tests";
 
@@ -42,5 +44,16 @@ export class TestCasesPage extends AppPage {
     await this.uploadTestsButton.click();
     const fileChooser = await fileChooserPromise;
     await fileChooser.setFiles(filePath);
+  }
+
+  @step()
+  async verifyTestExists(name: string) {
+    const testRow = this.testCaseRow(name);
+    await testRow.isLoaded();
+  }
+
+  testCaseRow(name: string): TestCaseRowComponent {
+    const testRow = this.row.filter({ hasText: name });
+    return new TestCaseRowComponent(testRow);
   }
 }

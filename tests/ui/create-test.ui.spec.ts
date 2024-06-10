@@ -1,28 +1,33 @@
-import { test } from "../../src/fixtures";
+import { test, expect } from "../../src/fixtures";
 
-test("create test", { tag: ["@ui", "@smoke"] }, async ({ defaultUserApp }) => {
-  await defaultUserApp.dashboard.open();
-  await defaultUserApp.navigate.openMenuItem("Create new test");
-  await defaultUserApp.newTest.create(
-    "Test default",
-    "Test description default"
+const testCases = [
+  {
+    id: "description is optional",
+    description: "",
+  },
+  {
+    id: "long description",
+    description: "Way too long".repeat(100),
+  },
+  {
+    id: "multipline description",
+    description: "First line\nSecond line\nThird line",
+  },
+];
+for (const {id, description} of testCases) {
+  test(
+    id,
+    { tag: ["@ui"] },
+    async ({ newUserApp: { dashboard, navigate, newTest, testCases }, newUser }) => {
+      await dashboard.open();
+      await navigate.openMenuItem("Create new test");
+      const name = `Test with ${newUser.username} user`;
+      await newTest.create(name,description);
+      await navigate.openMenuItem("Test Cases");
+      await testCases.verifyTestExists(name);
+    }
   );
-  await defaultUserApp.navigate.openMenuItem("Test Cases");
-});
-
-test(
-  "new user create test",
-  { tag: ["@ui"] },
-  async ({ newUserApp: { dashboard, navigate, newTest }, newUser }) => {
-    await dashboard.open();
-    await navigate.openMenuItem("Create new test");
-    await newTest.create(
-      `Test with ${newUser.username} user`,
-      `Test description from new user with email ${newUser.email}`
-    );
-    await navigate.openMenuItem("Test Cases");
-  }
-);
+}
 
 test("test name is mandatory", async ({ defaultUserApp: { newTest } }) => {
   await newTest.open();
