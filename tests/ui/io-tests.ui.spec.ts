@@ -12,7 +12,7 @@ test(
   }
 );
 
-test.only(
+test(
   "upload tests",
   { tag: ["@ui", "@regression"] },
   async ({ newUserApp: { testCases }, uploadTestsFilePath }) => {
