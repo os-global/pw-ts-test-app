@@ -12,7 +12,7 @@ export abstract class PageHolder extends LoadableComponent {
   protected async expectInputIsEmptyValidationMessage(locator: Locator) {
     await this.expectInputValidationMessage(
       locator,
-      "Please fill in this field."
+      "Please fill"
     );
   }
 
