@@ -2,15 +2,6 @@ import { defineConfig, devices } from "@playwright/test";
 import "dotenv/config";
 import { TestOptions } from "./src/fixtures/test.options";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig<TestOptions>({
   testDir: "./tests",
   /* Run tests in files in parallel */
@@ -22,7 +13,7 @@ export default defineConfig<TestOptions>({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? 'blob' : 'html',
+  reporter: process.env.CI ? 'blob' : [['list', { printSteps: true }], ['html', { open: 'never' }]],
   
   // [
   //   [
@@ -41,6 +32,8 @@ export default defineConfig<TestOptions>({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    video: "on-first-retry",
+    screenshot: "only-on-failure",
   },
 
   /* Configure projects for major browsers */
