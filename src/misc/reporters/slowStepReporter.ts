@@ -1,5 +1,5 @@
 import type {
-  Reporter, FullConfig, Suite, TestCase, TestResult, FullResult, TestStep, Location
+  Reporter, TestCase, TestResult, TestStep
 } from '@playwright/test/reporter';
 
 class SlowStepReporter implements Reporter {
