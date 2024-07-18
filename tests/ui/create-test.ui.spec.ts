@@ -1,4 +1,4 @@
-import { test, expect } from "../../src/fixtures";
+import { test } from "../../src/fixtures";
 
 const testCases = [
   {
