@@ -21,6 +21,6 @@ export class App extends PageHolder {
   public rating = new RatingPage(this.page);
   public testCases = new TestCasesPage(this.page);
   public newTest = new CreateNewTestPage(this.page);
-  public navigate = new NavigationComponent(this.navigationMenu);
+  public navigate = new NavigationComponent(this.page, this.navigationMenu);
   public account = new AccountComponent(this.accountMenu);
 }
