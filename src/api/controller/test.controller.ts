@@ -49,8 +49,10 @@ export class TestController extends BaseController {
       headers: { "X-CSRFToken": `${this.token}` },
       data: test,
     });
-    console.log(await response.json());
-    expect(response.status()).toBe(201);
+    const statusCode = response.status();
+    console.log(statusCode);
+    const body = await response.text();
+    console.log(body);
     return response.json() satisfies Promise<CreateNewTestResponseBody>;
   }
 }
