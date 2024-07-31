@@ -7,6 +7,7 @@ import { PageHolder } from "./core/page-holder";
 import { AccountComponent } from "./components/account.component";
 import { TestCasesPage } from "./pages/tests/test-cases.page";
 import { RatingPage } from "./pages/statistic/rating.page";
+import { RegisterPage } from "./pages/register.page";
 
 export class App extends PageHolder {
   private readonly navigationMenu = this.page.locator(".menuBox");
@@ -17,6 +18,7 @@ export class App extends PageHolder {
   }
 
   public login = new LoginPage(this.page);
+  public register = new RegisterPage(this.page);
   public dashboard = new DashboardPage(this.page);
   public rating = new RatingPage(this.page);
   public testCases = new TestCasesPage(this.page);

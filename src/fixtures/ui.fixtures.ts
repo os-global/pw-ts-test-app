@@ -1,10 +1,13 @@
+import { ApiClient } from "src/api";
 import { App } from "../app";
 import { test as base } from "./api.fixtures";
+import { APIRequestContext } from "@playwright/test";
 
 type Fixtures = {
     app: App;
     defaultUserApp: App;
     newUserApp: App;
+    deleteLoggedInUser: void;
 }
 
 export const test = base.extend<Fixtures>({
@@ -24,5 +27,12 @@ export const test = base.extend<Fixtures>({
         await newUserApp.login.silentLogin(newUser.username, newUser.password);
         await use(newUserApp);
         // teardown
+    },
+    deleteLoggedInUser: async ({ page }, use) => {
+        await use();
+        // teardown
+        const api: APIRequestContext = page.context().request;
+        const response = await api.delete("/api/user/current");
+        console.log(await response.text());
     }
 });

@@ -43,9 +43,11 @@ test("silent login test", async ({ app, defaultUser }) => {
   expect(app.dashboard.isLoaded()).toBeTruthy();
 });
 
-test("user can create new account", async ({ app, newUser }) => {
+test("user can create new account", async ({ app, newUserGeneratedCreds, deleteLoggedInUser }) => {
   await app.login.navigate();
-  await app.login.createAccount(defaultUser);
-
-  expect(app.login.expectSuccessMessage);
+  await app.login.clickCreateAccount();
+  await app.register.expectLoaded();
+  console.log(newUserGeneratedCreds);
+  await app.register.registerUser(newUserGeneratedCreds);
+  expect(app.dashboard.isLoaded()).toBeTruthy();
 });

@@ -7,6 +7,9 @@ export class LoginPage extends AppPage {
   private readonly loginButton = this.page.getByRole("button", {
     name: "Login",
   });
+  private readonly createUserButton = this.page.getByRole("link", {
+    name: "Don't have account yet?",
+  });
   private readonly credsErrorMessage = this.page.getByText(
     "Your username and password didn't match. Please try again."
   );
@@ -33,5 +36,9 @@ export class LoginPage extends AppPage {
 
   async silentLogin(username: string, password: string) {
     await this.page.request.post("/api/auth/login", {data: {"username": username, "password": password}});
+  }
+
+  async clickCreateAccount() {
+    await this.createUserButton.click();
   }
 }
