@@ -11,7 +11,7 @@ export class TestCasesPage extends AppPage {
     name: "Upload tests",
   });
   private readonly testsHeaderCount = this.page.locator(".tableTitle span");
-  private readonly row = this.page.locator("tdbody tr");
+  private readonly row = this.page.locator("tbody tr");
 
   public pagePath = "/tests";
 
@@ -48,11 +48,12 @@ export class TestCasesPage extends AppPage {
 
   @step()
   async verifyTestExists(name: string) {
-    const testRow = this.testCaseRow(name);
-    await testRow.isLoaded();
+    const testRow = await this.testCaseRow(name);
+    await testRow.expectLoaded();
   }
 
-  testCaseRow(name: string): TestCaseRowComponent {
+  @step()
+  async testCaseRow(name: string): Promise<TestCaseRowComponent> {
     const testRow = this.row.filter({ hasText: name });
     return new TestCaseRowComponent(testRow);
   }
